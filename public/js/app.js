@@ -20804,7 +20804,7 @@ exports = module.exports = __webpack_require__(11)(false);
 
 
 // module
-exports.push([module.i, "\n.content-wrapper {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  min-height: 100%;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-flex-line-pack: center;\n      align-content: center;\n}\n", ""]);
+exports.push([module.i, "\n.content-wrapper {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  min-height: 100%;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-flex-line-pack: center;\n      align-content: center;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n.apitwo-wrapper {\n  padding-top: 45px;\n}\n", ""]);
 
 // exports
 
@@ -21213,6 +21213,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -21222,9 +21243,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             form: {
                 term: ''
             },
+            form2: {
+                term: ''
+            },
             termInfo: {
                 title: '',
                 score: ''
+            },
+            termInfov2: {
+                title: '',
+                score: '',
+                id: '',
+                link: ''
             }
         };
     },
@@ -21244,6 +21274,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        onSubmit2: function onSubmit2(evt) {
+            var _this2 = this;
+
+            evt.preventDefault();
+            // Api call that passes data to search endpoint
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('api/v2/term', {
+                term: this.form2.term
+            }).then(function (response) {
+                var info = response.data;
+                _this2.termInfov2.title = info.attributes.term;
+                _this2.termInfov2.score = info.attributes.score;
+                _this2.termInfov2.link = info.links.self;
+                _this2.termInfov2.id = info.id;
+            }).catch(function (error) {
+                console.log(error);
+            });
         }
     },
     created: function created() {
@@ -21255,16 +21302,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }).catch(function (error) {
             console.log(error);
         });
-        // This is api example call for new api
-        /* axios.post('api/v2/term', {
-             term: 'yellow'
-         })
-             .then((response) => {
-                 console.log(response)
-              })
-             .catch(function (error) {
-                 console.log(error);
-             });*/
     }
 });
 
@@ -22165,7 +22202,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center content-wrapper" }, [
+    _c("div", { staticClass: "row content-wrapper" }, [
       _c(
         "div",
         [
@@ -22178,7 +22215,7 @@ var render = function() {
                 {
                   attrs: {
                     id: "exampleInputGroup1",
-                    label: "Popularity of term on Github",
+                    label: "Popularity of term on Github(v1)",
                     "label-for": "exampleInput1"
                   }
                 },
@@ -22215,6 +22252,73 @@ var render = function() {
               _vm._v(
                 "\n                    Score: " +
                   _vm._s(_vm.termInfo.score) +
+                  "\n                "
+              )
+            ])
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "apitwo-wrapper" },
+        [
+          _c(
+            "b-form",
+            { on: { submit: _vm.onSubmit2 } },
+            [
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    id: "exampleInputGroup1",
+                    label: "Popularity of term on Github(v2)",
+                    "label-for": "exampleInput1"
+                  }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: { id: "exampleInput1", placeholder: "Enter term" },
+                    model: {
+                      value: _vm.form2.term,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form2, "term", $$v)
+                      },
+                      expression: "form2.term"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-button",
+                { attrs: { type: "submit", variant: "primary" } },
+                [_vm._v("Submit")]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "card card-default" }, [
+            _c("div", { staticClass: "card-header" }, [
+              _vm._v(_vm._s(_vm.termInfov2.title))
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _vm._v(
+                "\n                    Score: " + _vm._s(_vm.termInfov2.score)
+              ),
+              _c("br"),
+              _vm._v("\n                    Link: "),
+              _c("a", { attrs: { href: _vm.termInfov2.link } }, [
+                _vm._v(_vm._s(_vm.termInfov2.link))
+              ]),
+              _c("br"),
+              _vm._v(
+                "\n                    Id: " +
+                  _vm._s(_vm.termInfov2.id) +
                   "\n                "
               )
             ])

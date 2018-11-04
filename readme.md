@@ -12,7 +12,7 @@ You need to have installed before starting
 
 * [xampp](https://www.apachefriends.org/index.html) - The web framework used
 * [composer](https://getcomposer.org/) - Dependency management
-* [node.js](https://nodejs.org/) - CSS framework
+* [node.js](https://nodejs.org/) - Javascript server for frontend
 
 ### Installing
 
@@ -72,7 +72,11 @@ Then go to console again and enter
 ```
 php artisan migrate
 ```
+then 
 
+```
+php artisan passport:install
+```
 then
 
 ```
@@ -89,7 +93,7 @@ CLIENT_SECRET=generated_token
 After all that go to 
 
 ```
-www.term.undabit
+www.term.undabot
 ```
 
 and try the app
@@ -98,7 +102,7 @@ and try the app
 
 * [Laravel](https://laravel.com/) - The web framework used
 * [Vue](https://vuejs.org/) - Frontend javascript framework
-* [ROME](https://bootstrap-vue.js.org/) - CSS framework
+* [Bootstrap-Vue](https://bootstrap-vue.js.org/) - CSS framework
 
 
 ## Authors

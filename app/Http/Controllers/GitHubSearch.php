@@ -37,7 +37,7 @@ class GitHubSearch extends Controller
      * @throws
      */
 
-    public function index(Request $request)
+    public function searchTerm(Request $request)
     {
         // Query on database who checks if term already exist in database
         $databaseTerms = Terms::where('title', $request->term)->first();
@@ -81,6 +81,77 @@ class GitHubSearch extends Controller
             return response()->json([
                 'term'=>$newTerm->title,
                 'score'=>round($grade,2)
+            ]);
+        }
+
+    }
+
+    /**
+     * Method for getting asked next version of term
+     * @param $request
+     * @return array(['term'=>$databaseTerms->title, 'score'=>$databaseTerms->grade]);
+     * @throws
+     */
+
+    public function searchTermV2(Request $request)
+    {
+        // Query on database who checks if term already exist in database
+        $databaseTerms = Terms::where('title', $request->term)->first();
+
+        // Condition which check if Term was found in database or not
+        if(!empty($databaseTerms)){
+            // If term was found return database info
+            return response()->json([
+                'type' => 'terms',
+                'id' => $databaseTerms->id,
+                'attributes' => [
+                    'term' => $databaseTerms->title,
+                    'score' => $databaseTerms->grade
+                ],
+                'links' => [
+                    'self' => "http://www.term.undabot/api/v2/term/$databaseTerms->title"
+                ]
+            ]);
+        } else {
+            // If term was not found init new Query and fill it with data
+            $newTerm =  new Terms();
+            $newTerm->title = $request->term;
+
+            // Run method to call api's for data
+            $results = $this->provider($request->term, 'https://api.github.com/search/issues');
+
+            // Insert returned data into variables
+            $resPositive = $results[0];
+            $resNegative = $results[1];
+
+            // Logic for calculating grade
+            $calcTotal = $resPositive->total_count + $resNegative->total_count;
+            if($calcTotal != 0){
+                $grade = $calcTotal / $resPositive->total_count;
+
+                if ($grade > 10){
+                    $grade = 10;
+                }
+            } else {
+                $grade = 0;
+            }
+
+            // Insert calculated grade into new query and call save query to database
+            $newTerm->grade = $grade;
+            $newTerm->save();
+
+            // Return term info
+            $databaseTerms = Terms::where('title', $request->term)->first();
+            return response()->json([
+                'type' => 'terms',
+                'id' => $databaseTerms->id,
+                'attributes' => [
+                    'term' => $newTerm->title,
+                    'score' => round($grade,2)
+                ],
+                'links' => [
+                    'self' => "http://www.term.undabot/api/v2/term/$databaseTerms->title"
+                ]
             ]);
         }
 

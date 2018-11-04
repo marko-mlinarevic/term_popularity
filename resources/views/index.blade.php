@@ -4,7 +4,7 @@
 </head>
 <body>
 <div id="app">
-    <root></root>
+    <el-term></el-term>
 </div>
 <script src="/js/app.js"></script>
 </body>

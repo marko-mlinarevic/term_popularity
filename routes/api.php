@@ -18,4 +18,5 @@ use Illuminate\Http\Request;
 });*/
 
 Route::get('/token', 'ApiAuth@apiAuth'); // Route for taking Auth Token.
-Route::post('/term', 'GitHubSearch@index')->middleware('client'); // Route for searching of term.
+Route::post('/term', 'GitHubSearch@searchTerm')->middleware('client'); // Route for searching of term.
+Route::post('/v2/term', 'GitHubSearch@searchTermV2')->middleware('client'); // Next version of Api route for searching of term.

@@ -68,6 +68,17 @@
                 .catch(function (error) {
                     console.log(error);
                 });
+            // This is api example call for new api
+           /* axios.post('api/v2/term', {
+                term: 'yellow'
+            })
+                .then((response) => {
+                    console.log(response)
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });*/
         }
     }
 </script>

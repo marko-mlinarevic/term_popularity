@@ -9,6 +9,7 @@
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import Term from './components/Term';
 
 window.Vue = require('vue');
 Vue.use(BootstrapVue);
@@ -19,8 +20,12 @@ Vue.use(BootstrapVue);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('Root', require('./components/Root.vue'));
+//Vue.component('term', require('./components/Term.vue'));
 
 const app = new Vue({
-    el: '#app'
+
+    el: '#app',
+    components: {
+        'elTerm': Term,
+    }
 });

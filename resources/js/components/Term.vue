@@ -37,6 +37,7 @@
                     <div class="card-body">
                         Score: {{termInfov2.score}}<br>
                         Link: <a :href="termInfov2.link">{{termInfov2.link}}</a><br>
+                        (Link ne radi samo je showcase zbog formatiranja po api specifikaciji)
                         Id: {{termInfov2.id}}
                     </div>
                 </div>

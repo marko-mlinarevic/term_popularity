@@ -67,7 +67,21 @@ system32 drivers config file
 127.0.0.1 www.term.undabot
 ```
 
+After that copy .env.example and inside change database name
+username and password into this
+
+```
+DB_DATABASE=undabot
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
 Then go to console again and enter
+
+```
+php artisan key:generate 
+```
+to generate key for the app. After that
 
 ```
 php artisan migrate
